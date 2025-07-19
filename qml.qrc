@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>icons/app.png</file>
+        <file>icons/App_2.png</file>
+        <file>icons/close.png</file>
+        <file>icons/maxsize.png</file>
+        <file>icons/minium.png</file>
+        <file>icons/normal.png</file>
+    </qresource>
+</RCC>
