@@ -1,6 +1,8 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Controls.Styles 1.4
+import QtQuick.Extras 1.4
 
 ApplicationWindow  {
     width: 1280
@@ -11,6 +13,7 @@ ApplicationWindow  {
     flags: Qt.FramelessWindowHint | Qt.Window
     color: "#00000000" //背景颜色黑边
 
+
     property int dragX: 0
     property int dragY: 0
     // 定义鼠标是否在拖动
@@ -20,6 +23,7 @@ ApplicationWindow  {
 
     Rectangle //主背景矩形
     {
+
         width:parent.width
         height:parent.height
 //        color: "red"
@@ -29,19 +33,18 @@ ApplicationWindow  {
             {
                 position:0
                 color:"#4158D0"
-            }
-            GradientStop //开始颜色
-            {
+            }//开始颜色
+            GradientStop {
                 position:1
                 color:"#C850C0"
             }
             orientation:Gradient.Horizontal
 
         }
-        radius: 10
+//        radius: 10 // 加上圆角会莫名其妙的闪动
+
         // 窗口拖动
-        MouseArea
-        {
+        MouseArea{
             width:parent.width
             height: 30
             onPressed:
@@ -64,48 +67,30 @@ ApplicationWindow  {
 
         }
 
-       Rectangle
-       {
-           width: 800
-           height: 500
-           //居中布局
-            anchors.centerIn:parent //居中于父节点
-            radius:10
-            Image {
-//                id: /*name*/
-                source: "qrc:/icons/app.png"
-            }
-            Text
-            {
-    //            id: Text1
-                x:530
-                y:130
-                width:120
-                height: 30
-                font.pixelSize: 25
-                text: qsTr("登入系统")
-            }
-            TextField{
-                id:username
-                x:220
-                y:150
-                width:300
-                height: 50
-                font.pixelSize: 25
-            }
-        }
 
 
     }
-    Rectangle // 关闭窗口按钮
-    {
+    Rectangle{
+       anchors.centerIn: parent  // 居中于父元素
+       color:"#00000000" //背景颜色黑边
+       width:root.width/3
+       height:root.height/3
+       CircularGauge {
+           id: circularGauge
+           anchors.centerIn: parent  // 居中于父元素
+           width: parent.width
+           height: parent.height
+       }
+
+    }// 关闭窗口按钮
+    Rectangle {
         id:closebtn
          x:root.width-35
          y:root.height-root.height+5
          width:30
          height:30
          color:"#00000000"
-         radius:15
+         radius:10
          Image{
 
            source: "qrc:/icons/close.png"
@@ -117,8 +102,8 @@ ApplicationWindow  {
             hoverEnabled: true  //开启鼠标区域监听
             onEntered: parent.color = "red"
             onExited: parent.color = "#00000000"
-            onPressed: parent.color = "#3BFFFFFF"
-            onReleased: parent.color = "#1BFFFFFF"
+//            onPressed: parent.color = "#3BFFFFFF"
+//            onReleased: parent.color = "#1BFFFFFF"
             onClicked:  root.close()
          }
     }
@@ -130,7 +115,7 @@ ApplicationWindow  {
          width:30
          height:30
          color:"#00000000"
-         radius:15
+         radius:closebtn.radius
         Image {
             source: root.visibility === Window.Windowed ? "qrc:/icons/maxsize.png": "qrc:/icons/normal.png" 
             anchors.centerIn: parent
@@ -141,8 +126,8 @@ ApplicationWindow  {
             hoverEnabled: true  //开启鼠标区域监听
             onEntered: parent.color = "#1BFFFFFF"
             onExited: parent.color = "#00000000"
-            onPressed: parent.color = "#3BFFFFFF"
-            onReleased: parent.color = "#1BFFFFFF"
+//            onPressed: parent.color = "#3BFFFFFF"
+//            onReleased: parent.color = "#1BFFFFFF"
             onClicked: {
                 if (root.visibility === Window.Windowed) {
                     root.visibility = Window.Maximized;
@@ -154,13 +139,13 @@ ApplicationWindow  {
          }
     }
     Rectangle{ // 回到任务栏
-        x:minmaxBtn.x-35
-        y:minmaxBtn.y
-        z:minmaxBtn.z
+        x:closebtn.x-35*2
+        y:closebtn.y
+        z:closebtn.z
         width:30
         height:30
         color:"#00000000"
-        radius:15
+        radius:closebtn.radius
        Image{
 
           source: "qrc:/icons/minium.png"
@@ -171,14 +156,15 @@ ApplicationWindow  {
            anchors.fill:parent
            hoverEnabled: true  //开启鼠标区域监听
            onEntered: parent.color = "#1BFFFFFF"
-           onExited: parent.color = "#00000000"
-           onPressed: parent.color = "#3BFFFFFF"
-           onReleased: parent.color = "#1BFFFFFF"
+            onExited: parent.color = "#00000000"
+//           onPressed: parent.color = "#3BFFFFFF"
+//           onReleased: parent.color = "#1BFFFFFF"
            onClicked:{
-             root.visibility = Window.Minimized; // 最小化窗口
+            root.visibility = Window.Minimized; // 最小化窗口
            }   
         }
     }
+
 
 
 }//窗口
