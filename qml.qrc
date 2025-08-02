@@ -7,5 +7,7 @@
         <file>icons/maxsize.png</file>
         <file>icons/minium.png</file>
         <file>icons/normal.png</file>
+        <file>icons/com.png</file>
+        <file>icons/needle.png</file>
     </qresource>
 </RCC>
